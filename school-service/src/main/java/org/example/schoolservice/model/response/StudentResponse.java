@@ -1,7 +1,7 @@
 /**
  * Author: Pricilia Anna V
  * Date:5/3/2024
- * Time:1:01 PM
+ * Time:4:29 PM
  */
 
 package org.example.schoolservice.model.response;
@@ -10,19 +10,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * Author: Pricilia Anna V
  * Date:5/3/2024
- * Time:1:01 PM
+ * Time:4:29 PM
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolResponse {
+public class StudentResponse {
     private String id;
-    private String code;
     private String name;
-    private List<StudentResponse> students;
+    private String schoolId;
+    private int age;
+    private String gender;
 }
