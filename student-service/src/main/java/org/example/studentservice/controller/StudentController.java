@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/student/")
+@RequestMapping("/student")
 public class StudentController {
     
     private StudentService studentService;
@@ -50,7 +50,7 @@ public class StudentController {
     public ResponseEntity<Response> getWithSchool(){
         var result = this.studentService.getAll();
         result.forEach(student -> {
-            student.setSchoolResponse(schoolClient.findById(student.getSchoolId()));
+            student.setSchool(schoolClient.findById(student.getSchoolId()));
         });
         return ResponseEntity.ok(
             new Response(200, "Success", result)
@@ -68,7 +68,7 @@ public class StudentController {
         var result = this.studentService.getById(id).orElse(null);
         if(result != null){
             SchoolResponse schoolResponse = schoolClient.findById(result.getSchoolId());
-            result.setSchoolResponse(schoolResponse);
+            result.setSchool(schoolResponse);
         }
         return ResponseEntity.ok(
             new Response(200, "Success", result)

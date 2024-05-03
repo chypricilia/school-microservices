@@ -29,8 +29,8 @@ public class StudentRequest {
     @Size(min = 36, max = 36)
     private String schoolId;
     @NotNull
-    @Size(max = 100)
-    private int age;
+    @Size(max = 36)
+    private String grade;
     @NotNull
     @Size(max = 10)
     private String gender;

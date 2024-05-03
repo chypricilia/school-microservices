@@ -33,8 +33,8 @@ public class StudentEntity {
     private String name;
     @Column(name = "school_id", length = 36, nullable = false)
     private String schoolId;
-    @Column(name = "age", nullable = false)
-    private int age;
+    @Column(name = "grade", length = 36, nullable = false)
+    private String grade;
     @Column(name = "gender", length = 10)
     private String gender;
 }

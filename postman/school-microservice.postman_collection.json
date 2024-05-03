@@ -1,0 +1,792 @@
+{
+	"info": {
+		"_postman_id": "52cb5be0-468a-4c3c-bd5f-5e381454a0d4",
+		"name": "school-microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7578703"
+	},
+	"item": [
+		{
+			"name": "school",
+			"item": [
+				{
+					"name": "Add School",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Function to generate a random string\r",
+									"function generateRandomString(length) {\r",
+									"    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+									"    var result = '';\r",
+									"    for (var i = 0; i < length; i++) {\r",
+									"        result += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+									"    }\r",
+									"    return result;\r",
+									"}\r",
+									"\r",
+									"// Function to generate a random code for the school\r",
+									"function generateRandomCode(length) {\r",
+									"    var prefix = ['SD-', 'SMP-', 'SMA-'];\r",
+									"    var prefixIndex = Math.floor(Math.random() * prefix.length);\r",
+									"    var code = prefix[prefixIndex];\r",
+									"    \r",
+									"    var numbers = '0123456789';\r",
+									"    for (var i = code.length; i < length; i++) {\r",
+									"        code += numbers.charAt(Math.floor(Math.random() * numbers.length));\r",
+									"    }\r",
+									"    return code;\r",
+									"}\r",
+									"\r",
+									"// Generate a random code for the school (maximum length of 10 characters)\r",
+									"var code = generateRandomCode(10);\r",
+									"\r",
+									"// Generate a random name for the school (maximum length of 50 characters)\r",
+									"var name = generateRandomString(10);\r",
+									"\r",
+									"// Set the generated code and name in the request body\r",
+									"pm.request.body.raw = JSON.stringify({\r",
+									"    \"code\": code,\r",
+									"    \"name\": name\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify the status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Verify the response body is not empty",
+									"pm.test(\"Response body is not empty\", function () {",
+									"    pm.response.to.have.jsonBody();",
+									"});",
+									"",
+									"// Verify the response time is less than 500ms",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"\",\r\n    \"name\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/school",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update School",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify the status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Verify the response body is not empty",
+									"pm.test(\"Response body is not empty\", function () {",
+									"    pm.response.to.have.jsonBody();",
+									"});",
+									"",
+									"// Verify the response time is less than 500ms",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData).to.not.be.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body should have statusCode, message, and data properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('statusCode');",
+									"    pm.expect(responseData).to.have.property('message');",
+									"    pm.expect(responseData).to.have.property('data');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response status code is 400\", function () {",
+									"  pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body has statusCode, message, and data properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('statusCode');",
+									"    pm.expect(responseData).to.have.property('message');",
+									"    pm.expect(responseData).to.have.property('data');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"2\",\r\n    \"code\": \"XYZ002\",\r\n    \"name\": \"XYZ School\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/school/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for GET /school endpoint\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each element in the data array has id, code, and name properties\", function () {\r",
+									"    pm.response.json().data.forEach(function(school) {\r",
+									"        pm.expect(school).to.have.property('id');\r",
+									"        pm.expect(school).to.have.property('code');\r",
+									"        pm.expect(school).to.have.property('name');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/school",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for GET /school endpoint\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body has the required fields - id, code, name, and students\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('code');\r",
+									"    pm.expect(responseData).to.have.property('name');\r",
+									"    pm.expect(responseData).to.have.property('students');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate that the 'students' field is either null or an array of objects\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.students).to.satisfy((students) => {\r",
+									"        return students === null || Array.isArray(students);\r",
+									"    }, \"The 'students' field should be either null or an array of objects\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/school/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get School with Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test for GET /school/with-student endpoint\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains an array of students\", function () {\r",
+									"    var jsonData = pm.response.json().data; // Fixed syntax\r",
+									"    pm.expect(jsonData).to.be.an('array').and.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/school/with-student",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school",
+								"with-student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete School By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test to check if the response time is less than 200ms\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields - id, code, name, and students\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('code');\r",
+									"    pm.expect(responseData).to.have.property('name');\r",
+									"    pm.expect(responseData).to.have.property('students');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Presence of Content-Type header in the response\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify the schema of the response data\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('id');\r",
+									"  pm.expect(responseData).to.have.property('code');\r",
+									"  pm.expect(responseData).to.have.property('name');\r",
+									"  pm.expect(responseData).to.have.property('students');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/school/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"school",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "student",
+			"item": [
+				{
+					"name": "Get Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Fixed the 'Each student has required fields' test\r",
+									"pm.test(\"Each student has required fields\", function () {\r",
+									"    var jsonData = pm.response.json().data;\r",
+									"    jsonData.forEach(function(student) {\r",
+									"        pm.expect(student).to.have.property('id');\r",
+									"        pm.expect(student).to.have.property('name');\r",
+									"        pm.expect(student).to.have.property('schoolId');\r",
+									"        pm.expect(student).to.have.property('grade');\r",
+									"        pm.expect(student).to.have.property('gender');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each student's id is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.data).to.be.an('array');\r",
+									"    \r",
+									"    responseData.data.forEach(function(student) {\r",
+									"        pm.expect(student.id).to.be.a('string').and.to.have.lengthOf.at.least(1);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/student",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Updated response time test\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/student/101",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Student By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Updated response time test\r",
+									"pm.test(\"Response time is less than 300ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(300);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/student/101",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student",
+								"101"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Student",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"// Function to generate a random alphanumeric string\r",
+									"function generateRandomString(length) {\r",
+									"    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+									"    var result = '';\r",
+									"    for (var i = 0; i < length; i++) {\r",
+									"        result += characters.charAt(Math.floor(Math.random() * characters.length));\r",
+									"    }\r",
+									"    return result;\r",
+									"}\r",
+									"\r",
+									"function generateRandomGrade() {\r",
+									"    var grades = ['1 SD', '2 SD', '3 SD', '4 SD', '5 SD', '6 SD', '1 SMP', '2 SMP', '3 SMP', '1 SMA', '2 SMA', '3 SMA'];\r",
+									"    return grades[Math.floor(Math.random() * grades.length)];\r",
+									"}\r",
+									"\r",
+									"// Function to generate a random gender\r",
+									"function generateRandomGender() {\r",
+									"    var genders = ['Male', 'Female'];\r",
+									"    return genders[Math.floor(Math.random() * genders.length)];\r",
+									"}\r",
+									"\r",
+									"// Generate a random name (maximum length of 10 characters)\r",
+									"var randomName = generateRandomString(10);\r",
+									"\r",
+									"// Generate a random grade\r",
+									"var randomGrade = generateRandomGrade();\r",
+									"\r",
+									"// Generate a random gender\r",
+									"var randomGender = generateRandomGender();\r",
+									"\r",
+									"// Set the generated random values in the request body\r",
+									"pm.variables.set(\"randomName\", randomName);\r",
+									"pm.variables.set(\"randomGrade\", randomGrade);\r",
+									"pm.variables.set(\"randomGender\", randomGender);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{randomName}}\",\r\n    \"schoolId\": \"90b37c43-76b2-4669-8861-026f4e1a29ec\",\r\n    \"grade\": \"{{randomGrade}}\",\r\n    \"gender\": \"{{randomGender}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/student",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test to check if the response time is less than 200ms\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content type is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check for any sensitive information leakage in the response\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.not.have.any.keys('id', 'name', 'schoolId', 'grade', 'gender', 'school');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"101\",\r\n    \"name\": \"John Doe\",\r\n    \"schoolId\": \"1\",\r\n    \"grade\": \"1 SMA\",\r\n    \"gender\": \"Male\",\r\n    \"school\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/student/101",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"student",
+								"101"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

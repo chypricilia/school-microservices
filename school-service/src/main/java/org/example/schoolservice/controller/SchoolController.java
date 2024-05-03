@@ -6,6 +6,7 @@
 
 package org.example.schoolservice.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.Valid;
 import org.example.schoolservice.client.StudentClient;
 import org.example.schoolservice.model.request.SchoolRequest;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/school/")
+@RequestMapping("/school")
 public class SchoolController {
     
     private SchoolService schoolService;
@@ -51,7 +52,7 @@ public class SchoolController {
         return result;
     }
     
-    @GetMapping("/with-employee")
+    @GetMapping("/with-student")
     public ResponseEntity<Response> getWithStudent(){
         var result = this.schoolService.getAll();
         result.forEach(school -> {

@@ -82,6 +82,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Optional<StudentResponse> save(StudentRequest request) {
         StudentEntity entity = new StudentEntity();
+        entity.setId(UUID.randomUUID().toString());
         return saveStudent(request, entity);
     }
     
@@ -98,7 +99,6 @@ public class StudentServiceImpl implements StudentService {
     
     private Optional<StudentResponse> saveStudent(StudentRequest request, StudentEntity entity) {
         BeanUtils.copyProperties(request, entity);
-        entity.setId(UUID.randomUUID().toString());
         try{
             this.studentRepository.save(entity);
             StudentResponse result = this.setResponse(entity);

@@ -22,6 +22,6 @@ public class StudentResponse {
     private String id;
     private String name;
     private String schoolId;
-    private int age;
+    private String grade;
     private String gender;
 }

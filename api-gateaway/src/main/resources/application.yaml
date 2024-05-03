@@ -7,9 +7,19 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
   tracing:
-    sampling:
+    sampler:
       probability: 1.0
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
 spring:
   application:
     name: api-gateway

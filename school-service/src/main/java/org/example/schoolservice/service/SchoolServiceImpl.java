@@ -62,13 +62,14 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public Optional<SchoolResponse> save(SchoolRequest request) {
         SchoolEntity entity = new SchoolEntity();
+        entity.setId(UUID.randomUUID().toString());
         return saveSchool(request, entity);
     }
     
     @Override
     public Optional<SchoolResponse> update(String id, SchoolRequest request) {
         SchoolEntity entity = schoolRepository.findById(id).orElse(null);
-        if(entity == null){
+        if (entity == null){
             log.error("Get school by id: {} not found", id);
             return Optional.empty();
         }
@@ -78,7 +79,6 @@ public class SchoolServiceImpl implements SchoolService {
     
     private Optional<SchoolResponse> saveSchool(SchoolRequest request, SchoolEntity entity) {
         BeanUtils.copyProperties(request, entity);
-        entity.setId(UUID.randomUUID().toString());
         try{
             this.schoolRepository.save(entity);
             SchoolResponse result = this.setResponse(entity);
