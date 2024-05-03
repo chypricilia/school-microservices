@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface SchoolRepository extends JpaRepository<SchoolEntity, Long> {
+public interface SchoolRepository extends JpaRepository<SchoolEntity, String> {
 }
