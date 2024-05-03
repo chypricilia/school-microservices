@@ -62,7 +62,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public Optional<SchoolResponse> save(SchoolRequest request) {
         SchoolEntity entity = new SchoolEntity();
-        return saveDepartment(request, entity);
+        return saveSchool(request, entity);
     }
     
     @Override
@@ -73,10 +73,10 @@ public class SchoolServiceImpl implements SchoolService {
             return Optional.empty();
         }
         
-        return saveDepartment(request, entity);
+        return saveSchool(request, entity);
     }
     
-    private Optional<SchoolResponse> saveDepartment(SchoolRequest request, SchoolEntity entity) {
+    private Optional<SchoolResponse> saveSchool(SchoolRequest request, SchoolEntity entity) {
         BeanUtils.copyProperties(request, entity);
         entity.setId(UUID.randomUUID().toString());
         try{
