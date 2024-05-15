@@ -1,4 +1,4 @@
-# School Microservices 
+# Spring Boot Microservices 
 
 This is an example project showcasing school microservices architecture using Spring Boot for each service. The project consists of the following services:
 
@@ -29,27 +29,48 @@ You can find example Postman requests in the `postman` folder.
 
 The microservices should be run sequentially in the following order:
 
-1. Service Registry (Eureka Server) - running at http://localhost:8761
-2. School Service
-3. Student Service
-4. Config Server
-5. API Gateway - end point on Postman would hit to `http://localhost:8090`
+1. **Service Registry (Eureka Server)** - running at http://localhost:8761
+2. **School Service**
+3. **Student Service**
+4. **Config Server**
+5. **API Gateway** - The endpoint on Postman would hit to `http://localhost:8090`
 
 ## APIs
 
 ### School Service
 
-1. **GET /school**: Retrieve all schools.
-2. **GET /school/{id}**: Retrieve a school by ID.
-3. **GET /school/with-student**: Retrieve all schools with associated students.
-4. **POST /school**: Add a new school. Request body should include code and name.
-5. **DELETE /school/{id}**: Delete a school by ID.
-6. **PATCH /school/{id}**: Update a school. Request body should include id, code, and name.
+| Method | Endpoint                      | Description                              |
+|--------|-------------------------------|------------------------------------------|
+| GET    | /school                       | Retrieve all schools.                    |
+| GET    | /school/{id}                  | Retrieve a school by ID.                 |
+| GET    | /school/with-student          | Retrieve all schools with associated students. |
+| POST   | /school                       | Add a new school. Request body should include code and name. |
+| DELETE | /school/{id}                  | Delete a school by ID.                   |
+| PATCH  | /school/{id}                  | Update a school. Request body should include id, code, and name. |
 
 ### Student Service
 
-1. **GET /student**: Retrieve all students.
-2. **GET /student/{id}**: Retrieve a student by ID.
-3. **POST /student**: Add a new student. Request body should include name, schoolId, grade, and gender.
-4. **DELETE /student/{id}**: Delete a student by ID.
-5. **PATCH /student/{id}**: Update a student. Request body should include id, name, schoolId, grade, and gender.
+| Method | Endpoint                      | Description                              |
+|--------|-------------------------------|------------------------------------------|
+| GET    | /student                      | Retrieve all students.                   |
+| GET    | /student/{id}                 | Retrieve a student by ID.                |
+| POST   | /student                      | Add a new student. Request body should include name, schoolId, grade, and gender. |
+| DELETE | /student/{id}                 | Delete a student by ID.                  |
+| PATCH  | /student/{id}                 | Update a student. Request body should include id, name, schoolId, grade, and gender. |
+
+## Additional Information
+
+### Port Configuration
+
+- **Service Registry (Eureka Server):** Running at http://localhost:8761
+- **API Gateway:** The endpoint on Postman would hit to `http://localhost:8090`. If the default port is in use, you can change it by modifying the configuration files.
+
+### Configuration Server
+
+- The Config Server is responsible for serving configuration properties to all services. Ensure it is running before starting other services.
+
+### Troubleshooting
+
+- **Port Conflicts:** If the default port for any service is in use, you can change it by modifying the configuration files. For example, to change the port for the API Gateway, modify the configuration file and restart the service.
+- If you encounter any issues, ensure that MySQL is installed and properly configured.
+- Check the console logs for any error messages when starting the services.
